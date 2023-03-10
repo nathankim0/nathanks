@@ -27,11 +27,9 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.kochava.base.Tracker
 import dagger.hilt.android.HiltAndroidApp
 import java.io.File
 import java.io.IOException

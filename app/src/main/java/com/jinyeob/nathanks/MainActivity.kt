@@ -1,7 +1,7 @@
 package com.jinyeob.nathanks
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.jinyeob.nathanks.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

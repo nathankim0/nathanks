@@ -52,6 +52,10 @@ android {
     }
 }
 
+ktlint {
+    disabledRules.set(setOf("no-wildcard-imports"))
+}
+
 dependencies {
     implementation(project(":domain"))
 

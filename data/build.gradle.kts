@@ -20,6 +20,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+ktlint {
+    disabledRules.set(setOf("no-wildcard-imports"))
+}
+
 dependencies {
     implementation(project(":domain"))
 

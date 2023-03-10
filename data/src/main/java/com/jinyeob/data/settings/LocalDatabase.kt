@@ -10,5 +10,4 @@ import androidx.room.RoomDatabase
     exportSchema = false
 )
 
-internal abstract class LocalDatabase : RoomDatabase() {
-}
+internal abstract class LocalDatabase : RoomDatabase()
