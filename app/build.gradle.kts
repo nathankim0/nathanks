@@ -53,6 +53,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(KotlinConfig.STDLIB)
 
     FirebaseConfig.run {

@@ -21,6 +21,8 @@ java {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(CoroutinesConfig.CORE)
 
     DaggerHiltConfig.run {
