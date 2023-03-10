@@ -13,12 +13,14 @@ internal class MyRepositoryImpl @Inject constructor(
     private val myRemoteDataSource: MyRemoteDataSource
 ) : MyRepository {
 
-    override suspend fun getMyData(): Result<MyModel> {
-        return myRemoteDataSource.getMyData().map { it.toModel() }
+    override suspend fun getMyData(): Result<MyModel> = runCatching {
+        myRemoteDataSource.getMyData().toModel()
     }
 
     override suspend fun getMyDataFlow(): Flow<MyModel> = flow {
-        myRemoteDataSource.getMyData().onSuccess {
+        runCatching {
+            myRemoteDataSource.getMyData()
+        }.onSuccess {
             emit(it.toModel())
         }.onFailure {
             Log.e("MyRepositoryImpl", "getMyDataFlow: ", it)
