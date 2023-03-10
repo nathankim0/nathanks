@@ -2,6 +2,7 @@ package com.jinyeob.data.feature.sample.di
 
 import com.jinyeob.data.feature.sample.impl.MyRepositoryImpl
 import com.jinyeob.data.feature.sample.local.MyLocalDataSource
+import com.jinyeob.data.feature.sample.remote.MyRemoteDataSource
 import com.jinyeob.data.settings.LocalDatabase
 import com.jinyeob.doamin.feature.sample.repository.MyRepository
 import dagger.Binds
@@ -24,7 +25,7 @@ internal interface MyModule {
     companion object {
         @Provides
         @Singleton
-        fun providesMyRemoteDataSource(retrofit: Retrofit): MyRepositoryImpl = retrofit.create()
+        fun providesMyRemoteDataSource(retrofit: Retrofit): MyRemoteDataSource = retrofit.create()
 
         @Provides
         @Singleton
