@@ -57,6 +57,7 @@ ktlint {
 }
 
 dependencies {
+    implementation(project(":data"))
     implementation(project(":domain"))
 
     implementation(KotlinConfig.STDLIB)
