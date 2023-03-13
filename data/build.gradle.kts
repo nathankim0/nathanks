@@ -60,5 +60,6 @@ dependencies {
         testImplementation(ASSERTJ)
         testImplementation(MOCKK)
         testImplementation(MOCK_WEB_SERVER)
+        testImplementation(EXT_JUNIT)
     }
 }
