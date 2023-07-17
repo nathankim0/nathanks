@@ -1,5 +1,3 @@
-import org.gradle.api.artifacts.dsl.DependencyHandler
-
 object KotlinConfig {
     private const val KOTLIN_VERSION = "1.7.10"
     const val STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
@@ -20,11 +18,6 @@ object DaggerHiltConfig {
     const val CORE = "com.google.dagger:hilt-core:$HILT_VERSION"
 }
 
-object HiltLifecycleConfig {
-    private const val HILT_LIFECYCLE_VERSION = "1.0.0-alpha03"
-    const val COMPILER = "androidx.hilt:hilt-compiler:$HILT_LIFECYCLE_VERSION"
-}
-
 object RoomConfig {
     private const val ROOM_VERSION = "2.4.1"
     const val RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
@@ -39,8 +32,8 @@ object NetworkConfig {
     const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:4.9.3"
     const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:4.9.3"
-    const val GSON = "com.google.code.gson:gson:2.8.7"
-    const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
+    const val GSON = "com.google.code.gson:gson:2.10.1"
+    const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
 }
 
 object ConverterConfig {
@@ -67,7 +60,7 @@ object TestConfig {
 }
 
 object AndroidConfig {
-    const val BUILD_TOOLS = "com.android.tools.build:gradle:7.4.2"
+    const val BUILD_TOOLS = "com.android.tools.build:gradle:8.0.2"
     const val CORE = "androidx.core:core-ktx:1.6.0"
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.4.1"
     const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.1.3"
@@ -77,6 +70,7 @@ object AndroidConfig {
     const val VIEW_PAGER = "androidx.viewpager2:viewpager2:1.0.0"
     const val CARD_VIEW = "androidx.cardview:cardview:1.0.0"
     const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:1.2.1"
+    const val SPLASH = "androidx.core:core-splashscreen:1.0.1"
 }
 
 object ComposeConfig {
@@ -86,6 +80,11 @@ object ComposeConfig {
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$COMPOSE_VERSION"
     const val RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
     const val ACTIVITY = "androidx.activity:activity-compose:1.3.1"
+}
+
+object HiltLifecycleConfig {
+    private const val HILT_LIFECYCLE_VERSION = "1.0.0-alpha03"
+    const val COMPILER = "androidx.hilt:hilt-compiler:$HILT_LIFECYCLE_VERSION"
 }
 
 object LifecycleConfig {
@@ -104,24 +103,20 @@ object NavigationConfig {
 }
 
 object GoogleConfig {
-    const val MATERIAL = "com.google.android.material:material:1.5.0"
+    const val MATERIAL = "com.google.android.material:material:1.9.0"
     const val FLEXBOX = "com.google.android.flexbox:flexbox:3.0.0"
     const val PLAY_CORE = "com.google.android.play:core:1.10.3"
     const val PLAY_CORE_KTX = "com.google.android.play:core-ktx:1.8.1"
 }
 
 object AuthConfig {
-    // TODO: project level build.gradle 에 추가
-    // TODO: google-services.json 파일 추가
-    // TODO: app level build.gradle 의 plugins 에 id("com.google.gms.google-services") 추가
-    const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.10"
-
-    const val GOOGLE_SERVICES_AUTH = "com.google.android.gms:play-services-auth:20.1.0"
     const val FACEBOOK_LOGIN = "com.facebook.android:facebook-login:latest.release"
+    const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.14"
+    const val GOOGLE_SERVICES_AUTH = "com.google.android.gms:play-services-auth:20.1.0"
 }
 
 object GlideConfig {
-    private const val GLIDE_VERSION = "4.13.0"
+    private const val GLIDE_VERSION = "4.15.1"
     const val GLIDE = "com.github.bumptech.glide:glide:$GLIDE_VERSION"
     const val COMPILER = "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
 }
@@ -140,22 +135,17 @@ object WorkConfig{
 }
 
 object FirebaseConfig{
-    const val BOM = "com.google.firebase:firebase-bom:29.3.0"
+    const val BOM = "com.google.firebase:firebase-bom:32.0.0"
     const val ANALYTICS = "com.google.firebase:firebase-analytics"
     const val MESSAGING = "com.google.firebase:firebase-messaging"
     const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
-    const val CRASHLYTICS_GRADLE = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
-    const val APP_DISTRIBUTION = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
-}
-
-object AnalyticsToolConfig{
-    const val AMPLITUDE = "com.amplitude:android-sdk:2.36.1"
-    const val KOCHAVA_TRACKER = "com.kochava.base:tracker:3.11.0"
-    const val KOCHAVA_TRACKER_NETWORK = "com.kochava.base:tracker-network:3.11.0"
+    const val CRASHLYTICS_GRADLE = "com.google.firebase:firebase-crashlytics-gradle:2.9.5"
+    const val APP_DISTRIBUTION = "com.google.firebase:firebase-appdistribution-gradle:4.0.0"
+    const val DYNAMIC_LINKS = "com.google.firebase:firebase-dynamic-links-ktx"
 }
 
 object EtcConfig {
-    const val LINT = "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
+    const val LINT = "org.jlleitschuh.gradle:ktlint-gradle:11.3.2"
     const val EVENTBUS = "org.greenrobot:eventbus:3.3.1"
     const val CIRCLE_IMAGE_VIEW = "de.hdodenhof:circleimageview:3.1.0"
     const val CIRCLE_PROGRESS = "com.github.lzyzsd:CircleProgress:v1.2.4"
@@ -166,4 +156,23 @@ object EtcConfig {
     const val PAGER_INDICATOR = "com.github.rbro112:Android-Indefinite-Pager-Indicator:1.5"
     const val TEDPERMISSION = "io.github.ParkSangGwon:tedpermission-normal:3.3.0"
     const val READMORE_VIEW = "com.webtoonscorp.android:readmore-view:1.3.2"
+}
+
+object PayConfig {
+    const val GOOGLE_BUILLING = "com.android.billingclient:billing-ktx:6.0.1"
+}
+
+object PagingConfig {
+    private const val paging_version = "3.2.0-alpha04"
+
+    const val RUNTIME = "androidx.paging:paging-runtime:$paging_version"
+
+    // alternatively - without Android dependencies for tests
+    const val common = "androidx.paging:paging-common:$paging_version"
+
+    // optional - RxJava2 support
+    const val rx = "androidx.paging:paging-rxjava2:$paging_version"
+
+    // optional - Guava ListenableFuture support
+    const val guava = "androidx.paging:paging-guava:$paging_version"
 }

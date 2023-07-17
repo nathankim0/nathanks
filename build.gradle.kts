@@ -1,3 +1,4 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
         google()
@@ -8,6 +9,7 @@ buildscript {
         classpath(KotlinConfig.GRADLE_PLUGIN)
         classpath(AndroidConfig.BUILD_TOOLS)
         classpath(DaggerHiltConfig.ANDROID_GRADLE_PLUGIN)
+        classpath(AuthConfig.GOOGLE_SERVICES)
         classpath(FirebaseConfig.CRASHLYTICS_GRADLE)
         classpath(EtcConfig.LINT)
         classpath(TestConfig.ANDROID_JUNIT5)

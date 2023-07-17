@@ -2,49 +2,43 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
+    id("de.mannodermaus.android-junit5")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("kotlin-kapt")
 }
 
 android {
-
-    compileSdkVersion(AppConfig.compileSdk)
-    buildToolsVersion(AppConfig.buildToolsVersion)
+    namespace = "com.jinyeob.nathanks"
+    compileSdk = AppConfig.compileSdk
+    buildToolsVersion = AppConfig.buildToolsVersion
 
     defaultConfig {
         applicationId = "com.jinyeob.nathanks"
-        minSdkVersion(AppConfig.minSdk)
-        targetSdkVersion(AppConfig.targetSdk)
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
 
         testInstrumentationRunner = AppConfig.androidTestInstrumentation
+        testInstrumentationRunnerArguments["runnerBuilder"] =
+            "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
 
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        named("release") {
+            isMinifyEnabled = true
+            proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
+            proguardFile("proguard-rules.pro")
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
     }
 
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
     }
 
     testOptions {
@@ -61,18 +55,14 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(KotlinConfig.STDLIB)
+    implementation("com.kizitonwose.calendar:view:2.3.0")
 
     FirebaseConfig.run {
         implementation(platform(BOM))
         implementation(ANALYTICS)
         implementation(MESSAGING)
         implementation(CRASHLYTICS)
-    }
-
-    AnalyticsToolConfig.run {
-        implementation(AMPLITUDE)
-        implementation(KOCHAVA_TRACKER)
-        implementation(KOCHAVA_TRACKER_NETWORK)
+        implementation(DYNAMIC_LINKS)
     }
 
     NetworkConfig.run {
@@ -114,11 +104,6 @@ dependencies {
         implementation(FLEXBOX)
         implementation(PLAY_CORE)
         implementation(PLAY_CORE_KTX)
-    }
-
-    AuthConfig.run {
-//        implementation(FACEBOOK_LOGIN)
-//        implementation(GOOGLE_SERVICES_AUTH)
     }
 
     GlideConfig.run {
