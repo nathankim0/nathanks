@@ -1,64 +1,60 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.jinyeob.nathanks"
-    compileSdk = AppConfig.compileSdk
+    namespace = "com.jinyeob.nathanks.data"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
     defaultConfig {
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
+        @Suppress("DEPRECATION")
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-}
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
+    buildTypes {
+        release {
+            buildConfigField("Boolean", "DEBUG_MODE", "false")
+        }
+        debug {
+            buildConfigField("Boolean", "DEBUG_MODE", "true")
+        }
+    }
 
-ktlint {
-    disabledRules.set(setOf("no-wildcard-imports"))
+    buildFeatures {
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    implementation(CoroutinesConfig.CORE)
+    implementation(libs.coroutines.core)
 
-    DaggerHiltConfig.run {
-        implementation(ANDROID)
-        kapt(COMPILER)
-    }
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.compiler)
 
-    NetworkConfig.run {
-        api(RETROFIT)
-        api(CONVERTER_MOSHI)
-        implementation(LOGGING_INTERCEPTOR)
-        implementation(GSON)
-        implementation(CONVERTER_GSON)
-    }
+    api(libs.retrofit2)
+    api(libs.retrofit2.converter.moshi)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.gson)
+    implementation(libs.retrofit2.converter.gson)
+    api(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
-    RoomConfig.run {
-        implementation(KTX)
-        api(RUNTIME)
-        kapt(COMPILER)
-        testImplementation(TESTING)
-    }
-
-    ConverterConfig.run {
-        api(MOSHI_KOTLIN)
-        kapt(MOSHI_KOTLIN_CODEGEN)
-    }
-
-    TestConfig.run {
-        testRuntimeOnly(ENGINE)
-        testImplementation(JUPITER)
-        testImplementation(ASSERTJ)
-        testImplementation(MOCKK)
-        testImplementation(MOCK_WEB_SERVER)
-        testImplementation(EXT_JUNIT)
-    }
+    implementation(libs.room.ktx)
+    api(libs.room.runtime)
+    ksp(libs.room.compiler)
+    testImplementation(libs.room.testing)
 }

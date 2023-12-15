@@ -2,7 +2,6 @@ package com.jinyeob.data.settings
 
 import android.content.Context
 import androidx.room.Room
-import com.jinyeob.nathanks.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +19,6 @@ internal object DatabaseModule {
         Room.databaseBuilder(
             context,
             LocalDatabase::class.java,
-            BuildConfig.LIBRARY_PACKAGE_NAME.split(".").last() + ".db"
+            "nathanks" + ".db"
         ).build()
 }

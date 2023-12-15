@@ -10,4 +10,4 @@
  # is used.
  -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 
--keep class com.dreamfora.** { <fields>; }
+-keep class com.jinyeob.** { <fields>; }

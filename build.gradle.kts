@@ -1,31 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.androidHilt) apply false
+    alias(libs.plugins.ktlint) apply false
+}
+
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://plugins.gradle.org/m2/")
-    }
     dependencies {
-        classpath(KotlinConfig.GRADLE_PLUGIN)
-        classpath(AndroidConfig.BUILD_TOOLS)
-        classpath(DaggerHiltConfig.ANDROID_GRADLE_PLUGIN)
-        classpath(AuthConfig.GOOGLE_SERVICES)
-        classpath(FirebaseConfig.CRASHLYTICS_GRADLE)
-        classpath(EtcConfig.LINT)
-        classpath(TestConfig.ANDROID_JUNIT5)
-        classpath(FirebaseConfig.APP_DISTRIBUTION)
+        classpath(libs.bundles.common)
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://jitpack.io")
-    }
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        debug.set(true)
+    }
 }

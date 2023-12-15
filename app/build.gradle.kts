@@ -1,168 +1,106 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-parcelize")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.androidHilt)
     id("kotlin-kapt")
-    id("de.mannodermaus.android-junit5")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
+//    id("com.google.gms.google-services")
+//    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace = "com.jinyeob.nathanks"
-    compileSdk = AppConfig.compileSdk
-    buildToolsVersion = AppConfig.buildToolsVersion
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 
     defaultConfig {
         applicationId = "com.jinyeob.nathanks"
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
 
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
-        testInstrumentationRunnerArguments["runnerBuilder"] =
-            "de.mannodermaus.junit5.AndroidJUnit5Builder"
+        versionCode = buildversionCode()
+        versionName = buildversionName()
     }
-
     buildTypes {
-        named("release") {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = true
             proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
             proguardFile("proguard-rules.pro")
+
+            buildConfigField("Boolean", "DEBUG_MODE", "false")
+            manifestPlaceholders["DEBUG_MODE"] = false
+            manifestPlaceholders["CRASHLYTICS_ENABLED"] = true
+            manifestPlaceholders["APP_NAME"] = "@string/app_name"
+            manifestPlaceholders["APP_ICON"] = "@mipmap/ic_launcher"
+            manifestPlaceholders["APP_ROUND_ICON"] = "@mipmap/ic_launcher_round"
         }
+        debug {
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = ".${getBuildNumber()}-dev${getBetaVersionPropertyInfo()}"
+            isMinifyEnabled = false
+
+            buildConfigField("Boolean", "DEBUG_MODE", "true")
+            manifestPlaceholders["DEBUG_MODE"] = true
+            manifestPlaceholders["CRASHLYTICS_ENABLED"] = true
+            manifestPlaceholders["APP_NAME"] = "@string/app_name_dev"
+            manifestPlaceholders["APP_ICON"] = "@mipmap/ic_launcher_dev"
+            manifestPlaceholders["APP_ROUND_ICON"] = "@mipmap/ic_launcher_dev_round"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildFeatures {
         viewBinding = true
         dataBinding = true
-        compose = true
-    }
-
-    testOptions {
-        unitTests.isReturnDefaultValues = true
+        buildConfig = true
     }
 }
 
-ktlint {
-    disabledRules.set(setOf("no-wildcard-imports"))
+tasks.configureEach {
+    when {
+        // 서명된 APK 또는 번들 생성 작업에 대해
+        this.name.startsWith("generateSigned") || this.name.startsWith("assembleRelease") -> {
+            this.doLast {
+                incrementBuildNumberFile()
+            }
+        }
+    }
 }
 
 dependencies {
-    implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":data"))
 
-    implementation(KotlinConfig.STDLIB)
-    implementation("com.kizitonwose.calendar:view:2.3.0")
+    implementation(libs.bundles.android)
+    implementation(libs.bundles.android.google)
+    implementation(libs.android.billing)
+    implementation(libs.bundles.auth)
+    implementation(libs.bundles.coroutines)
 
-    FirebaseConfig.run {
-        implementation(platform(BOM))
-        implementation(ANALYTICS)
-        implementation(MESSAGING)
-        implementation(CRASHLYTICS)
-        implementation(DYNAMIC_LINKS)
-    }
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.compiler)
 
-    NetworkConfig.run {
-        implementation(OKHTTP)
-    }
-
-    CoroutinesConfig.run {
-        implementation(CORE)
-        implementation(ANDROID)
-    }
-
-    DaggerHiltConfig.run {
-        implementation(ANDROID)
-        kapt(COMPILER)
-    }
-
-    ComposeConfig.run {
-        implementation(UI)
-        implementation(MATERIAL)
-        implementation(UI_TOOLING)
-        implementation(RUNTIME_LIVEDATA)
-        implementation(ACTIVITY)
-    }
-
-    AndroidConfig.run {
-        implementation(CORE)
-        implementation(APPCOMPAT)
-        implementation(CONSTRAINTLAYOUT)
-        implementation(ACTIVITY)
-        implementation(FRAGMENT)
-        implementation(LEGACY_SUPPORT)
-        implementation(CARD_VIEW)
-        implementation(RECYCLER_VIEW)
-        implementation(VIEW_PAGER)
-    }
-
-    GoogleConfig.run {
-        implementation(MATERIAL)
-        implementation(FLEXBOX)
-        implementation(PLAY_CORE)
-        implementation(PLAY_CORE_KTX)
-    }
-
-    GlideConfig.run {
-        implementation(GLIDE)
-        kapt(COMPILER)
-    }
-
-    NavigationConfig.run {
-        implementation(FRAGMENT)
-        implementation(UI)
-        implementation(RUNTIME)
-    }
-
-    HiltLifecycleConfig.run {
-        kapt(COMPILER)
-    }
-
-    LifecycleConfig.run {
-        implementation(RUNTIME)
-        implementation(LIVEDATA)
-        implementation(VIEW_MODEL)
-        implementation(SAVED_STATE)
-    }
-
-    IntuitConfig.run {
-        implementation(SDP)
-        implementation(SSP)
-    }
-
-    WorkConfig.run {
-        implementation(RUNTIME)
-        implementation(RUNTIME_KTX)
-        implementation(HILT)
-    }
-
-    EtcConfig.run {
-        implementation(EVENTBUS)
-        implementation(CIRCLE_IMAGE_VIEW)
-        implementation(CIRCLE_PROGRESS)
-        implementation(LOTTIE)
-        implementation(MP_ANDROID_CHART)
-        implementation(SHIMMER)
-        implementation(CAROUSEL_LAYOUT)
-        implementation(PAGER_INDICATOR)
-        implementation(TEDPERMISSION)
-        implementation(READMORE_VIEW)
-    }
-
-    TestConfig.run {
-        testRuntimeOnly(ENGINE)
-        testImplementation(JUPITER)
-        testImplementation(ASSERTJ)
-        testImplementation(JUNIT4)
-        testImplementation(TRUTH)
-        testImplementation(MOCKK)
-        androidTestImplementation(EXT_JUNIT)
-        androidTestImplementation(ESPRESSO_CORE)
-        androidTestImplementation(API)
-        androidTestImplementation(ANDROID_TEST_CORE)
-        androidTestRuntimeOnly(ANDROID_TEST_RUNNER)
-    }
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
+    implementation(libs.bundles.mmp)
+    implementation(libs.okhttp3)
+    implementation(libs.glide)
+    ksp(libs.glide.compiler)
+    implementation(libs.bundles.android.navigation)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.work)
+    implementation(libs.bundles.android.lifecycle)
+    implementation(libs.bundles.android.intuit)
+    implementation(libs.bundles.android.work)
+    implementation(libs.bundles.android.etc)
 }
+
