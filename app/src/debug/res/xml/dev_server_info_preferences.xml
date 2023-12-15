@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="서버 정보">
+
+        <ListPreference
+            app:defaultValue="https://apidev.dreamfora.net/"
+            app:entries="@array/app_api_values"
+            app:entryValues="@array/app_api_values"
+            app:iconSpaceReserved="false"
+            app:key="base_url"
+            app:title="App 용 테스트 서버 변경"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="https://apidev.dreamfora.net/"
+            app:entries="@array/ai_api_values"
+            app:entryValues="@array/ai_api_values"
+            app:iconSpaceReserved="false"
+            app:key="ai_base_url"
+            app:title="AI 용 테스트 서버 변경"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

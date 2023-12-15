@@ -1,0 +1,51 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="하드웨어 정보">
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_device_os"
+            app:title="안드로이드 버전" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_device_sdk"
+            app:title="SDK" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_device_manufacturer"
+            app:title="Manufacturer" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_device_brand"
+            app:title="Brand" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_device_model"
+            app:title="Model" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="앱 정보">
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_app_version"
+            app:title="앱 버전" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

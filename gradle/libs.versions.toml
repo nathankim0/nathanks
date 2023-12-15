@@ -115,6 +115,9 @@ calendarView = "2.3.0"
 zoomy = "1.0.0"
 # https://github.com/PhilJay/MPAndroidChart
 mpchart = "v3.1.0"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
 
 #LIBRARIES
 [libraries]
@@ -216,6 +219,9 @@ readmore-view = { module = "com.webtoonscorp.android:readmore-view", version.ref
 calendar-view = { module = "com.kizitonwose.calendar:view", version.ref = "calendarView" }
 zoomy = { module = "io.github.imablanco:zoomy", version.ref = "zoomy" }
 mpchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpchart" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
 #PLUGINS
 [plugins]

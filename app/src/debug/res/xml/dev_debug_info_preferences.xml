@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="토스트">
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="dev_toast"
+            app:title="토스트 보이기" />
+
+        <SwitchPreferenceCompat
+            app:dependency="dev_toast"
+            app:iconSpaceReserved="false"
+            app:key="dev_event_toast"
+            app:title="▸ 이벤트 토스트" />
+
+        <SwitchPreferenceCompat
+            app:dependency="dev_toast"
+            app:iconSpaceReserved="false"
+            app:key="dev_debug_toast"
+            app:title="▸ 디버그 토스트" />
+
+        <SwitchPreferenceCompat
+            app:dependency="dev_toast"
+            app:iconSpaceReserved="false"
+            app:key="dev_error_toast"
+            app:title="▸ 에러 토스트" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

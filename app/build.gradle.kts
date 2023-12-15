@@ -79,6 +79,7 @@ tasks.configureEach {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":core-common"))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.android.google)
@@ -103,4 +104,3 @@ dependencies {
     implementation(libs.bundles.android.work)
     implementation(libs.bundles.android.etc)
 }
-

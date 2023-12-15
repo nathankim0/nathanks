@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name=".DevRemoveAllActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DevLogDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DevLogInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DevDebugInfoActivity"
+            android:exported="false"
+            android:label="DevDebugInfoActivity" />
+        <activity
+            android:name=".DevDeviceInfoActivity"
+            android:exported="false"
+            android:label="DevDeviceInfoActivity" />
+    </application>
+</manifest>

@@ -1,0 +1,81 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="토큰">
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_access_token"
+            app:title="access token" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_access_token_expired_at"
+            app:title="access token expired date" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_refresh_token"
+            app:title="refresh token" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_refresh_token_expired_at"
+            app:title="refresh token expired date" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false"
+        app:title="유저">
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_seq"
+            app:title="seq" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_type"
+            app:title="type" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_ssoId"
+            app:title="ssoId" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_email"
+            app:title="email" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_nickname"
+            app:title="nickname" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_image"
+            app:title="image" />
+
+        <Preference
+            app:enableCopying="true"
+            app:iconSpaceReserved="false"
+            app:key="dev_user_offlineUpdatedAt"
+            app:title="offlineUpdatedAt" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

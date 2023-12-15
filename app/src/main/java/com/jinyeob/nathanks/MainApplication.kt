@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -30,14 +31,23 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.jinyeob.nathanks.log.repository.LogRepository
+import com.jinyeob.nathanks.preferences.repository.PreferencesRepository
 import dagger.hilt.android.HiltAndroidApp
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
+import javax.inject.Inject
 
 @HiltAndroidApp
 class MainApplication : Application() {
+
+    @Inject
+    lateinit var logRepository: LogRepository
+
+    @Inject
+    lateinit var preferencesRepository: PreferencesRepository
 
     init {
         instance = this
@@ -46,6 +56,30 @@ class MainApplication : Application() {
     companion object {
         const val TAG = "tag_default"
         const val TAG_LIFECYCLE = "tag_lifecycle"
+
+        val log get() = instance.logRepository
+
+        fun <T> setPreference(key: String?, value: T) {
+            instance.preferencesRepository.setPreference(key, value)
+        }
+
+        fun <T> getPreference(key: String, defaultValue: T): T = instance.preferencesRepository.getPreference(key, defaultValue)
+
+        /**
+         * 주의 : 모든 Preference 를 삭제합니다.
+         */
+        fun clearAllPreferences() = instance.preferencesRepository.clearAll()
+
+        /**
+         * 주의 : 모든 데이터를 삭제합니다.
+         */
+        fun clearAllData() {
+            try {
+                Runtime.getRuntime().exec("pm clear " + applicationContext().packageName)
+            } catch (e: Exception) {
+                log.e("clearAllData", e)
+            }
+        }
 
         private var sToast: Toast? = null
 
@@ -70,6 +104,16 @@ class MainApplication : Application() {
             (context.getSystemService(Context.POWER_SERVICE) as PowerManager).isIgnoringBatteryOptimizations(
                 context.packageName
             )
+
+        fun getVersion(context: Context): String = context.packageManager.getPackageInfoCompat(applicationContext().packageName, 0).versionName
+
+        private fun PackageManager.getPackageInfoCompat(packageName: String, flags: Int = 0): PackageInfo =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags.toLong()))
+            } else {
+                @Suppress("DEPRECATION")
+                getPackageInfo(packageName, flags)
+            }
 
         fun isOnline(): Boolean {
             val connectivityManager =

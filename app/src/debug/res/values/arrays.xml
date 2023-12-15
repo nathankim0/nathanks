@@ -1,0 +1,12 @@
+<resources>
+    <string-array name="app_api_values">
+        <item>https://apidev.dreamfora.net/</item>
+        <item>https://apistage.dreamfora.net/</item>
+        <item>https://apiprod.dreamfora.net/</item>
+    </string-array>
+
+    <string-array name="ai_api_values">
+        <item>https://aidev.dreamfora.com/</item>
+        <item>https://ai.dreamfora.com/</item>
+    </string-array>
+</resources>
